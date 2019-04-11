@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>12: Shor algorithm &mdash; ReNomQ  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js"></script>
+        <script type="text/javascript" src="../../../_static/katex_autorenderer.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="13: Quantum Error Correction" href="13.Quantum_Error_Correction.html" />
+    <link rel="prev" title="11: Phase estimation problem" href="11.Quantum_Phase_Estimation_algorithm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> ReNomQ
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction to ReNomQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">How to install ReNomQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/api.html">API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../example.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01.ReNomQ_tutorial.html">1: Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.Quantum_gate_tutorial1.html">2: Quantum gate tutorial1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.Quantum_gate_tutorial2.html">3: Quantum gate tutorial2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.Deutsch_algorithm.html">4: Deutsch algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.Deutsch-Jozsa_algorithm.html">5: Deutsch-Jozsa algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.Bernstein-Vazirani_algorithm.html">6: Bernstein-Vazirani algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.Simon_algorithm.html">7: Simon algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08.Quantum_teleportation.html">8: 2-bit quantum teleportation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09.Grover_algorithm.html">9: Grover algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10.Quantum_Fourier_Transform.html">10: Quantum Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11.Quantum_Phase_Estimation_algorithm.html">11: Phase estimation problem</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12: Shor algorithm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#12-1:-Classical-factorization-algorithm">12-1: Classical factorization algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#12-2:-The-Quantum-circuit">12-2: The Quantum circuit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#12-3:-Quantum-oracle">12-3: Quantum oracle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="13.Quantum_Error_Correction.html">13: Quantum Error Correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14.Quantum_tunnelling.html">14: Quantum tunnelling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ReNomQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../example.html">Examples</a> &raquo;</li>
+        
+      <li>12: Shor algorithm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/rsts/example/notebook/12.Shor_algorithm.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="12:-Shor-algorithm">
+<h1>12: Shor algorithm<a class="headerlink" href="#12:-Shor-algorithm" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">renom_q</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">math</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="12-1:-Classical-factorization-algorithm">
+<h2>12-1: Classical factorization algorithm<a class="headerlink" href="#12-1:-Classical-factorization-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Method of classical factorization (N=15)</p>
+<p>We randomly choose a disjoint integer <span class="math">\(a\in [2, N-1]=\{2, 4, 7, 8, 11, 13, 14\}\)</span> smaller than <span class="math">\(N\)</span>.</p>
+<p>For example as <span class="math">\(a=7\)</span>. Consider the function <span class="math">\(f(x)=a^x\ \mathrm{mod}\ N\ (x=0, 1, 2, \dots)\)</span> and find the minimum period <span class="math">\(r\)</span> that satisfies <span class="math">\(f(x)=f(x+r)\)</span>.</p>
+<div class="math">
+\[f(x)=f(x+r) \rightarrow a^x\ \mathrm{mod}\ N = a^{x+r}\ \mathrm{mod}\ N \rightarrow a^r\ \mathrm{mod}\ N =1
+
+\]</div>
+<p>If this period <span class="math">\(r\)</span> is an even number, a factor can be found using Euclid’s algorithm. If <span class="math">\(r\)</span> is an odd number, select the integer <span class="math">\(a\)</span> again.</p>
+<div class="math">
+\[a^r\ \mathrm{mod}\ N =1 \rightarrow (a^{r/2}-1)(a^{r/2}+1)\ \mathrm{mod}\ N =0 \rightarrow \mathrm{Find\ the\ greatest\ common\ divisor\ } \mathrm{gcd}(a^{r/2}\pm 1, N)
+
+\]</div>
+<p>When <span class="math">\(N=15\)</span> and <span class="math">\(a=7\)</span>, you can calculate as follows.</p>
+<div class="math">
+\[f(0)=1,\ \ f(1)=7,\ \ f(2)=4,\ \ f(3)=13,\ \ f(4)=1,\dots
+
+\]</div>
+<p>Since the period <span class="math">\(r=4\)</span> is an even number,</p>
+<div class="math">
+\[a^{r/2}\pm 1 = 7^{4/2} \pm 1 =\{48, 50\} \rightarrow \mathrm{gcd}(48, 15)=3,\ \ \mathrm{gcd}(50, 15)=5
+
+\]</div>
+<p>Therefore, the factors 3 and 5 of <span class="math">\(N=15\)</span> are obtained.</p>
+</div>
+<div class="section" id="12-2:-The-Quantum-circuit">
+<h2>12-2: The Quantum circuit<a class="headerlink" href="#12-2:-The-Quantum-circuit" title="Permalink to this headline">¶</a></h2>
+<p>Make function <span class="math">\(f(x)=7^x\ \mathrm{mod}\ 15\)</span> a quantum function. When binary number expresses that the numerical value <span class="math">\(x=0, 1, 2,...\)</span> of the variable <span class="math">\(x\)</span> is added to the function <span class="math">\(f(x)=7^x\ \mathrm{mod}\ 15\)</span>, it is as shown in the table below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><span class="math">\(x_0\)</span></th>
+<th class="head"><span class="math">\(x_1\)</span></th>
+<th class="head"><span class="math">\(x_2\)</span></th>
+<th class="head"><span class="math">\(y_0\)</span></th>
+<th class="head"><span class="math">\(y_1\)</span></th>
+<th class="head"><span class="math">\(y_2\)</span></th>
+<th class="head"><span class="math">\(y_3\)</span></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td><strong>1</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td><strong>1</strong></td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td><strong>1</strong></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td><strong>1</strong></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>A quantum gate is constructed based on this table. For example, in <span class="math">\(x=x_0x_1x_2=000=0\)</span>, it suffices to apply bit inversion operation X to <span class="math">\(y_3\)</span> so that it becomes <span class="math">\(y=y_0y_1y_2y_3=0001=1\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bx</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">by</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">cn</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">qx</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="s2">&quot;xq&quot;</span><span class="p">)</span>
+<span class="n">qy</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">by</span><span class="p">,</span> <span class="s2">&quot;yq&quot;</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="n">cn</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qx</span><span class="p">,</span> <span class="n">qy</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bx</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qy</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">qy</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;0001&#39;: 248, &#39;0100&#39;: 262, &#39;0111&#39;: 242, &#39;1101&#39;: 272}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/rsts_example_notebook_12.Shor_algorithm_18_1.png" src="../../../_images/rsts_example_notebook_12.Shor_algorithm_18_1.png" />
+</div>
+</div>
+<p>Therefore, since the function value appears repeatedly at the input of 8 types of superposition states as follows, 4 kinds of outputs are obtained.</p>
+<div class="math">
+\[\left| f(0) \right\rangle + \left| f(1) \right\rangle + \left| f(2) \right\rangle + \left| f(3) \right\rangle + \left| f(4) \right\rangle + \left| f(5) \right\rangle + \left| f(6) \right\rangle + \left| f(7) \right\rangle \rightarrow \left| 1 \right\rangle + \left| 7 \right\rangle + \left| 4 \right\rangle + \left| 13 \right\rangle
+
+\]</div>
+</div>
+<div class="section" id="12-3:-Quantum-oracle">
+<h2>12-3: Quantum oracle<a class="headerlink" href="#12-3:-Quantum-oracle" title="Permalink to this headline">¶</a></h2>
+<p>Quantum oracle</p>
+<div class="math">
+\[\left| x \right\rangle \left| y \right\rangle \xrightarrow{U_f} \left| x \right\rangle \left| y \oplus f(x) \right\rangle
+
+\]</div>
+<p>When <span class="math">\(\left| y \right\rangle\)</span> is set to <span class="math">\(\left| 0 \right\rangle\)</span>, the output becomes <span class="math">\(f(x)\)</span> only.</p>
+<div class="math">
+\[\left| x \right\rangle \left| 0 \right\rangle \xrightarrow{U_f} \left| x \right\rangle \left| 0 \oplus f(x) \right\rangle = \left| x \right\rangle \left| f(x) \right\rangle
+
+\]</div>
+<p>By applying the superposition state to this expression, shift invariance works for function <span class="math">\(f(x)=7^x\ \mathrm{mod}\ 15\)</span>, and although there is a difference in phase, it becomes as follows.</p>
+<div class="math">
+\[\left| 0 \right\rangle \left| 0 \right\rangle \xrightarrow{H \otimes I} \xrightarrow{U_f} \xrightarrow{QFT^{-1} \otimes I} \left( \left| 0 \right\rangle + \left| 2 \right\rangle + \left| 4 \right\rangle + \left| 6 \right\rangle \right) \left| f(x) \right\rangle
+
+\]</div>
+<p>That is, no matter what function value <span class="math">\(\left| 1 \right\rangle,\ \ \left| 4 \right\rangle,\ \ \left| 7 \right\rangle,\ \ \left| 13 \right\rangle\)</span> is observed, if <span class="math">\(\left| x \right\rangle\)</span> is subjected to inverse quantum Fourier transform, only the same quantum state <span class="math">\(\left| 0 \right\rangle,\ \ \left| 2 \right\rangle,\ \ \left| 4 \right\rangle,\ \ \left| 6 \right\rangle\)</span> is observed, although there is a difference in phase due to shift invariance.</p>
+<div class="math">
+\[\left| 0 \right\rangle \left| 0 \right\rangle + \left| 4 \right\rangle \left| 0 \right\rangle \rightarrow \left| 0 \right\rangle \left| f(0) \right\rangle + \left| 4 \right\rangle \left| f(4) \right\rangle = \left| 0 \right\rangle \left| 1 \right\rangle + \left| 4 \right\rangle \left| 1 \right\rangle = \left( \left| 0 \right\rangle + \left| 4 \right\rangle \right) \left| 1 \right\rangle \rightarrow \left( \left| 0 \right\rangle,\left| 2 \right\rangle,\left| 4 \right\rangle,\left| 6 \right\rangle \right) \left| 1 \right\rangle
+
+\]</div>
+<div class="math">
+\[\left| 1 \right\rangle \left| 0 \right\rangle + \left| 5 \right\rangle \left| 0 \right\rangle \rightarrow \left| 1 \right\rangle \left| f(1) \right\rangle + \left| 5 \right\rangle \left| f(5) \right\rangle = \left| 1 \right\rangle \left| 7 \right\rangle + \left| 5 \right\rangle \left| 7 \right\rangle = \left( \left| 1 \right\rangle + \left| 5 \right\rangle \right) \left| 7 \right\rangle \rightarrow \left( \left| 0 \right\rangle,\left| 2 \right\rangle,\left| 4 \right\rangle,\left| 6 \right\rangle \right) \left| 7 \right\rangle
+
+\]</div>
+<div class="math">
+\[\left| 2 \right\rangle \left| 0 \right\rangle + \left| 6 \right\rangle \left| 0 \right\rangle \rightarrow \left| 2 \right\rangle \left| f(2) \right\rangle + \left| 6 \right\rangle \left| f(6) \right\rangle = \left| 2 \right\rangle \left| 4 \right\rangle + \left| 6 \right\rangle \left| 4 \right\rangle = \left( \left| 2 \right\rangle + \left| 6 \right\rangle \right) \left| 4 \right\rangle \rightarrow \left( \left| 0 \right\rangle,\left| 2 \right\rangle,\left| 4 \right\rangle,\left| 6 \right\rangle \right) \left| 4 \right\rangle
+
+\]</div>
+<div class="math">
+\[\left| 3 \right\rangle \left| 0 \right\rangle + \left| 7 \right\rangle \left| 0 \right\rangle \rightarrow \left| 3 \right\rangle \left| f(3) \right\rangle + \left| 7 \right\rangle \left| f(7) \right\rangle = \left| 3 \right\rangle \left| 13 \right\rangle + \left| 7 \right\rangle \left| 13 \right\rangle = \left( \left| 3 \right\rangle + \left| 7 \right\rangle \right) \left| 13 \right\rangle \rightarrow \left( \left| 0 \right\rangle,\left| 2 \right\rangle,\left| 4 \right\rangle,\left| 6 \right\rangle \right) \left| 13 \right\rangle
+
+\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">iqft</span><span class="p">(</span><span class="n">qci</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">qci</span><span class="o">.</span><span class="n">cu1</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="p">)),</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="n">qci</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">swap</span><span class="p">(</span><span class="n">qci</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+
+<span class="n">bx</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">by</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">cn</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">qx</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="s2">&quot;xq&quot;</span><span class="p">)</span>
+<span class="n">qy</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">by</span><span class="p">,</span> <span class="s2">&quot;yq&quot;</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="n">cn</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qx</span><span class="p">,</span> <span class="n">qy</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bx</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qy</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qy</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">qx</span><span class="p">)</span>
+<span class="n">iqft</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">qx</span><span class="p">,</span> <span class="n">bx</span><span class="p">)</span>
+<span class="n">swap</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">qx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qx</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">qx</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;000&#39;: 238, &#39;010&#39;: 286, &#39;100&#39;: 266, &#39;110&#39;: 234}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/rsts_example_notebook_12.Shor_algorithm_28_1.png" src="../../../_images/rsts_example_notebook_12.Shor_algorithm_28_1.png" />
+</div>
+</div>
+<p>By observing the quantum bit <span class="math">\(\left| x \right\rangle\)</span>, 0, 2, 4, and 6 were obtained as observed values <span class="math">\(s\)</span>. For <span class="math">\(k \in \{ 0,1,2,3,4,5,6,7\}\)</span>, the cycle <span class="math">\(T\)</span> of the function can be estimated as 2 and 4 as the period <span class="math">\(T\)</span> as the estimate of 3 bits of <span class="math">\(k/T\)</span> as follows.</p>
+<div class="math">
+\[s=2^3 \left( \frac{k}{T} \right) \rightarrow \frac{s}{8}=\frac{k}{T} = \left(
+\begin{array}{r}
+\frac{0}{8}=0 \rightarrow T=(\times) \\
+\frac{2}{8}=\frac{1}{4} \rightarrow T=4(\circ) \\
+\frac{4}{8}=\frac{1}{2} \rightarrow T=2(\times) \\
+\frac{6}{8}=\frac{3}{4} \rightarrow T=4(\circ)
+\end{array}
+\right.\]</div>
+<div class="line-block">
+<div class="line">From this result, it can be found that the period <span class="math">\(T\)</span> is 4 with a probability of 50%.</div>
+<div class="line">Since <span class="math">\(T=r=4\)</span> is an even number, Factors 3 and 5 of <span class="math">\(N=15\)</span> can be obtained by finding the greatest common divisor (gcd) by Euclid’s algorithm.</div>
+</div>
+<div class="math">
+\[a^{r/2}\pm 1 = 7^{4/2} \pm 1 =\{48, 50\} \rightarrow \mathrm{gcd}(48, 15)=3,\ \ \mathrm{gcd}(50, 15)=5
+
+\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="13.Quantum_Error_Correction.html" class="btn btn-neutral float-right" title="13: Quantum Error Correction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="11.Quantum_Phase_Estimation_algorithm.html" class="btn btn-neutral float-left" title="11: Phase estimation problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Grid.Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
