@@ -8,6 +8,7 @@
 
 class ReNomQError(Exception):
     """Base class for errors raised by ReNomQ."""
+
     def __init__(self, *message):
         super().__init__(' '.join(message))
         self.message = ' '.join(message)

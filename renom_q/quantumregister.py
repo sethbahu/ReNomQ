@@ -19,6 +19,7 @@ class QuantumRegister:
         >>> import renom_q
         >>> q = renom_q.QuantumRegister(1)
     """
+
     def __init__(self, num, name=None):
         self.name = 'q' if name is None else name
         self.dict = {self.name: 0}

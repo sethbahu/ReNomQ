@@ -19,6 +19,7 @@ class ClassicalRegister:
         >>> import renom_q
         >>> c = renom_q.ClassicalRegister(1)
     """
+
     def __init__(self, num, name=None):
         self.name = 'c' if name is None else name
         self.dict = {self.name: 0}

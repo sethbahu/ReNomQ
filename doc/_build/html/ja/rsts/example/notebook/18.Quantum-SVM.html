@@ -1,0 +1,834 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>18: Quantum-Support Vector Machine (SVM) &mdash; ReNomQ  ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'',
+              LANGUAGE:'ja',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js"></script>
+        <script type="text/javascript" src="../../../_static/katex_autorenderer.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="References" href="References.html" />
+    <link rel="prev" title="17: Quantum-Principal Component Analysis (PCA)" href="17.Quantum-PCA.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> ReNomQ
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction to ReNomQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/main.html">How to install ReNomQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/api.html">API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../example.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01.ReNomQ_tutorial.html">1: Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.Quantum_gate_tutorial1.html">2: Quantum gate tutorial1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.Quantum_gate_tutorial2.html">3: Quantum gate tutorial2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.Deutsch_algorithm.html">4: Deutsch algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.Deutsch-Jozsa_algorithm.html">5: Deutsch-Jozsa algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.Bernstein-Vazirani_algorithm.html">6: Bernstein-Vazirani algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.Simon_algorithm.html">7: Simon algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08.Quantum_teleportation.html">8: 2-bit quantum teleportation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09.Grover_algorithm.html">9: Grover algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10.Quantum_Fourier_Transform.html">10: Quantum Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11.Quantum_Phase_Estimation_algorithm.html">11: Phase estimation problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12.Shor_algorithm.html">12: Shor algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13.Quantum_Error_Correction.html">13: Quantum Error Correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14.Quantum_tunnelling.html">14: Quantum tunnelling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15.Quantum-AutoEncoder.html">15: Quantum-AutoEncoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="16.Quantum-Clustering.html">16: Quantum-Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="17.Quantum-PCA.html">17: Quantum-Principal Component Analysis (PCA)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">18: Quantum-Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ReNomQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../example.html">Examples</a> &raquo;</li>
+        
+      <li>18: Quantum-Support Vector Machine (SVM)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/rsts/example/notebook/18.Quantum-SVM.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="18:-Quantum-Support-Vector-Machine-(SVM)">
+<h1>18: Quantum-Support Vector Machine (SVM)<a class="headerlink" href="#18:-Quantum-Support-Vector-Machine-(SVM)" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>The structure of the quantum circuit of this quantum SVM is inspired by the paper of <a class="reference external" href="https://www.nature.com/articles/s41586-019-0980-2#Abs1">Vojtěch Havlíček, Antonio D. Córcoles, Kristan Temme et al (2019)</a>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">renom_q</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">renom_q.ml.qsvm</span> <span class="k">import</span> <span class="n">QSVM</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<p>Perform data classification of support vector machine (SVM) using adiabatic quantum computation by Ising model.</p>
+<ul class="simple">
+<li>The code of Quantum-Support Vector Machine (SVM)
+<a class="reference external" href="https://github.com/ReNom-dev-team/ReNomQ/blob/release/0.2/renom_q/ml/qsvm.py">https://github.com/ReNom-dev-team/ReNomQ/blob/release/0.2/renom_q/ml/qsvm.py</a></li>
+</ul>
+<p>Learn classifiers with <code class="docutils literal notranslate"><span class="pre">QSVM.fit(train_data,</span> <span class="pre">train_label)</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">train_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">train_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">qsvm</span> <span class="o">=</span> <span class="n">QSVM</span><span class="p">()</span>
+<span class="n">qsvm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_xy</span><span class="p">,</span> <span class="n">train_label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Draw a graph of training data with <code class="docutils literal notranslate"><span class="pre">QSVM.plot_graph(data,</span> <span class="pre">label)</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">qsvm</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">train_xy</span><span class="p">,</span> <span class="n">train_label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/rsts_example_notebook_18.Quantum-SVM_8_0.png" src="../../../_images/rsts_example_notebook_18.Quantum-SVM_8_0.png" />
+</div>
+</div>
+<p>Perform label estimation of test data with <code class="docutils literal notranslate"><span class="pre">QSVM.predict(test_data)</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">label</span> <span class="o">=</span> <span class="n">qsvm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1, 1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1]
+</pre></div></div>
+</div>
+<p>Draw a graph of training data and test data with <code class="docutils literal notranslate"><span class="pre">QSVM.plot_graph(train_data,</span> <span class="pre">train_label,</span> <span class="pre">test_data,</span> <span class="pre">test_label)</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">qsvm</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">train_xy</span><span class="p">,</span> <span class="n">train_label</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/rsts_example_notebook_18.Quantum-SVM_12_0.png" src="../../../_images/rsts_example_notebook_18.Quantum-SVM_12_0.png" />
+</div>
+</div>
+<p>Draw a graph of only test data with <code class="docutils literal notranslate"><span class="pre">QSVM.plot_graph(x_test,</span> <span class="pre">y_pred)</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">qsvm</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">x_test</span><span class="o">=</span><span class="n">test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/rsts_example_notebook_18.Quantum-SVM_14_0.png" src="../../../_images/rsts_example_notebook_18.Quantum-SVM_14_0.png" />
+</div>
+</div>
+<p>By displaying <code class="docutils literal notranslate"><span class="pre">QSVM.result</span></code>, it is possible to see the calculation result when each data point is classified.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">qsvm</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;[3 3]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 0]), &#39;result&#39;: {&#39;00000011&#39;: 1, &#39;10000010&#39;: 1, &#39;10000011&#39;: 4, &#39;11000001&#39;: 2, &#39;11000010&#39;: 555, &#39;11000011&#39;: 456, &#39;11000110&#39;: 1, &#39;11001010&#39;: 3, &#39;11010010&#39;: 1}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.4472136 ],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.23570226],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.16439899],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.18569534],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.13867505],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.4472136 ],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.31622777],
+       [0.4472136 , 0.23570226, 0.16439899, 0.18569534, 0.13867505,
+        0.4472136 , 0.31622777, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[7 4]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 0]), &#39;result&#39;: {&#39;01000011&#39;: 3, &#39;10000011&#39;: 1, &#39;11000001&#39;: 4, &#39;11000010&#39;: 834, &#39;11000011&#39;: 176, &#39;11000110&#39;: 1, &#39;11010010&#39;: 5}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.5       ],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.4472136 ],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.17149859],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.31622777],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.2773501 ],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.16666667],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.2773501 ],
+       [0.5       , 0.4472136 , 0.17149859, 0.31622777, 0.2773501 ,
+        0.16666667, 0.2773501 , 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[4 7]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 0]), &#39;result&#39;: {&#39;01000010&#39;: 1, &#39;01001010&#39;: 1, &#39;10000001&#39;: 1, &#39;11000001&#39;: 11, &#39;11000010&#39;: 987, &#39;11000011&#39;: 13, &#39;11000110&#39;: 3, &#39;11010001&#39;: 1, &#39;11010010&#39;: 2, &#39;11100010&#39;: 4}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.31622777],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.4472136 ],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.5       ],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.13867505],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.2       ],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.23570226],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 1.        ],
+       [0.31622777, 0.4472136 , 0.5       , 0.13867505, 0.2       ,
+        0.23570226, 1.        , 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[5 1]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 1]), &#39;result&#39;: {&#39;01000011&#39;: 2, &#39;10000010&#39;: 1, &#39;10000011&#39;: 5, &#39;11000000&#39;: 1, &#39;11000001&#39;: 6, &#39;11000010&#39;: 370, &#39;11000011&#39;: 632, &#39;11000110&#39;: 1, &#39;11001011&#39;: 1, &#39;11010010&#39;: 5}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.33333333],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.19611614],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.12403473],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.33333333],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.13867505],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.2       ],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.19611614],
+       [0.33333333, 0.19611614, 0.12403473, 0.33333333, 0.13867505,
+        0.2       , 0.19611614, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[2 5]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 1]), &#39;result&#39;: {&#39;01000011&#39;: 7, &#39;10000011&#39;: 2, &#39;11000001&#39;: 8, &#39;11000010&#39;: 190, &#39;11000011&#39;: 816, &#39;11010011&#39;: 1}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.31622777],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.24253563],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.2236068 ],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.13867505],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.13736056],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.70710678],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.4472136 ],
+       [0.31622777, 0.24253563, 0.2236068 , 0.13867505, 0.13736056,
+        0.70710678, 0.4472136 , 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[3 9]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 1]), &#39;result&#39;: {&#39;01000011&#39;: 5, &#39;10000011&#39;: 6, &#39;11000001&#39;: 4, &#39;11000010&#39;: 1, &#39;11000011&#39;: 1005, &#39;11000111&#39;: 1, &#39;11001010&#39;: 1, &#39;11010011&#39;: 1}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.18569534],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.23570226],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 1.        ],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.10599979],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.15811388],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.18569534],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.31622777],
+       [0.18569534, 0.23570226, 1.        , 0.10599979, 0.15811388,
+        0.18569534, 0.31622777, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[6 9]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 1]), &#39;result&#39;: {&#39;01000010&#39;: 1, &#39;01000011&#39;: 3, &#39;10000011&#39;: 5, &#39;10001011&#39;: 1, &#39;11000001&#39;: 4, &#39;11000010&#39;: 156, &#39;11000011&#39;: 844, &#39;11000110&#39;: 3, &#39;11000111&#39;: 1, &#39;11001010&#39;: 1, &#39;11010010&#39;: 1, &#39;11010011&#39;: 2, &#39;11100010&#39;: 2}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.19611614],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.33333333],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.5       ],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.12126781],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.2773501 ],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.14142136],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.2773501 ],
+       [0.19611614, 0.33333333, 0.5       , 0.12126781, 0.2773501 ,
+        0.14142136, 0.2773501 , 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[8 7]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 1]), &#39;result&#39;: {&#39;01000011&#39;: 3, &#39;10000011&#39;: 6, &#39;11000001&#39;: 5, &#39;11000010&#39;: 1, &#39;11000011&#39;: 1004, &#39;11000110&#39;: 1, &#39;11001010&#39;: 3, &#39;11010011&#39;: 1}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.23570226],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.4472136 ],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.2236068 ],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.16666667],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 1.        ],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.13130643],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.24253563],
+       [0.23570226, 0.4472136 , 0.2236068 , 0.16666667, 1.        ,
+        0.13130643, 0.24253563, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[3 5]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 0]), &#39;result&#39;: {&#39;10000110&#39;: 1, &#39;11000000&#39;: 1, &#39;11000001&#39;: 2, &#39;11000010&#39;: 957, &#39;11000011&#39;: 55, &#39;11000110&#39;: 3, &#39;11001010&#39;: 2, &#39;11010010&#39;: 3}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.4472136 ],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.31622777],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.24253563],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.15617376],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.15811388],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.4472136 ],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.70710678],
+       [0.4472136 , 0.31622777, 0.24253563, 0.15617376, 0.15811388,
+        0.4472136 , 0.70710678, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[2 4]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 1]), &#39;result&#39;: {&#39;01000011&#39;: 7, &#39;10000011&#39;: 3, &#39;11000001&#39;: 6, &#39;11000010&#39;: 7, &#39;11000011&#39;: 998, &#39;11010011&#39;: 2, &#39;11100001&#39;: 1}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.33333333],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.2236068 ],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.18569534],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.1490712 ],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.13130643],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 1.        ],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.35355339],
+       [0.33333333, 0.2236068 , 0.18569534, 0.1490712 , 0.13130643,
+        1.        , 0.35355339, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[9 9]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 1]), &#39;result&#39;: {&#39;01000011&#39;: 1, &#39;10000011&#39;: 3, &#39;11000001&#39;: 6, &#39;11000010&#39;: 63, &#39;11000011&#39;: 950, &#39;11001010&#39;: 1}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.15617376],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.23570226],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.2       ],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.12403473],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.5       ],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.10599979],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.17149859],
+       [0.15617376, 0.23570226, 0.2       , 0.12403473, 0.5       ,
+        0.10599979, 0.17149859, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[4 3]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 0]), &#39;result&#39;: {&#39;01000011&#39;: 6, &#39;11000000&#39;: 2, &#39;11000010&#39;: 952, &#39;11000011&#39;: 55, &#39;11000110&#39;: 1, &#39;11001010&#39;: 5, &#39;11010010&#39;: 2, &#39;11100010&#39;: 1}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 0.70710678],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.2773501 ],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.16666667],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.2236068 ],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.15617376],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.31622777],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.33333333],
+       [0.70710678, 0.2773501 , 0.16666667, 0.2236068 , 0.15617376,
+        0.31622777, 0.33333333, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[6 4]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 0]), &#39;result&#39;: {&#39;01000011&#39;: 4, &#39;10000011&#39;: 1, &#39;11000000&#39;: 1, &#39;11000010&#39;: 990, &#39;11000011&#39;: 14, &#39;11000110&#39;: 3, &#39;11001010&#39;: 5, &#39;11010010&#39;: 3, &#39;11100001&#39;: 1, &#39;11100010&#39;: 2}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 1.        ],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.5       ],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.18569534],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.2773501 ],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.23570226],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.2       ],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.35355339],
+       [1.        , 0.5       , 0.18569534, 0.2773501 , 0.23570226,
+        0.2       , 0.35355339, 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}, &#39;[4 4]&#39;: {&#39;solution&#39;: array([1, 1, 0, 0, 0, 0, 1, 0]), &#39;result&#39;: {&#39;01000011&#39;: 6, &#39;01001011&#39;: 1, &#39;10000010&#39;: 1, &#39;11000010&#39;: 989, &#39;11000011&#39;: 15, &#39;11000110&#39;: 2, &#39;11001010&#39;: 4, &#39;11010010&#39;: 3, &#39;11100010&#39;: 3}, &#39;J&#39;: array([[0.        , 0.4472136 , 0.19611614, 0.23570226, 0.2       ,
+        0.25      , 0.4472136 , 1.        ],
+       [0.4472136 , 0.        , 0.2773501 , 0.18569534, 0.31622777,
+        0.18569534, 0.5       , 0.35355339],
+       [0.19611614, 0.2773501 , 0.        , 0.1118034 , 0.18569534,
+        0.17149859, 0.33333333, 0.2       ],
+       [0.23570226, 0.18569534, 0.1118034 , 0.        , 0.16439899,
+        0.13130643, 0.15617376, 0.2       ],
+       [0.2       , 0.31622777, 0.18569534, 0.16439899, 0.        ,
+        0.11704115, 0.19611614, 0.17149859],
+       [0.25      , 0.18569534, 0.17149859, 0.13130643, 0.11704115,
+        0.        , 0.2773501 , 0.33333333],
+       [0.4472136 , 0.5       , 0.33333333, 0.15617376, 0.19611614,
+        0.2773501 , 0.        , 0.5       ],
+       [1.        , 0.35355339, 0.2       , 0.2       , 0.17149859,
+        0.33333333, 0.5       , 0.        ]]), &#39;hz&#39;: array([-1, -1,  1,  1,  1,  1, -1,  0]), &#39;hx&#39;: 1, &#39;shots&#39;: 1024, &#39;qasm&#39;: None}}
+</pre></div></div>
+</div>
+<p>It is also possible to classify high-dimensional test data by high-dimensional training data.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">train_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]])</span>
+<span class="n">train_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">qsvm</span> <span class="o">=</span> <span class="n">QSVM</span><span class="p">()</span>
+<span class="n">qsvm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_xy</span><span class="p">,</span> <span class="n">train_label</span><span class="p">)</span>
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">label</span> <span class="o">=</span> <span class="n">qsvm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1, -1]
+</pre></div></div>
+</div>
+<hr class="docutils" />
+<p>When drawing a quantum circuit, if you first call <code class="docutils literal notranslate"><span class="pre">QSVM</span></code> like <code class="docutils literal notranslate"><span class="pre">QSVM(set_qasm=True)</span></code>, qasm code is added to <code class="docutils literal notranslate"><span class="pre">QSVM.result</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="References.html" class="btn btn-neutral float-right" title="References" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="17.Quantum-PCA.html" class="btn btn-neutral float-left" title="17: Quantum-Principal Component Analysis (PCA)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Grid.Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

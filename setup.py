@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2019, Grid.
+#
+# This source code is licensed under the ReNom Subscription Agreement, version 1.0.
+# ReNom Subscription Agreement Ver. 1.0 (https://www.renom.jp/info/license/index.html)
+
+
 import os
 import sys
 import re
@@ -17,7 +25,7 @@ DIR = str(pathlib.Path(__file__).resolve().parent)
 
 setup(
     name="renom_q",
-    version="0.1b1",
+    version="0.2b1",
     packages=['renom_q'],
     include_package_data=True,
     zip_safe=True,

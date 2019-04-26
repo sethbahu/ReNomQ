@@ -1,8 +1,12 @@
-ReNomQ version 0.1b1
+ReNomQ version 0.2b1
 =====================
-ReNomQ is a SDK & PythonAPI for developing application for quantum computer.
+ReNomQ is a machine learning framework for quantum machine learning and quantum optimization.
 
 * http://renom.jp/packages/renomq/index.html
+
+Change v0.1b1 => v0.2b1
+------------------------------------
+* Add Quantum machine learning module.
 
 
 Requirements

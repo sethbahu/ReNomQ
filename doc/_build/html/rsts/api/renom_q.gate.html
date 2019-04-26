@@ -1,0 +1,1168 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>renom_q.gate &mdash; ReNomQ  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js"></script>
+        <script type="text/javascript" src="../../_static/katex_autorenderer.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="renom_q.utilitys" href="renom_q.utilitys.html" />
+    <link rel="prev" title="renom_q.quantumcircuit" href="renom_q.quantumcircuit.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ReNomQ
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction to ReNomQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/main.html">How to install ReNomQ</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="renom_q.html">renom_q</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="renom_q.quantumregister.html">renom_q.quantumregister</a></li>
+<li class="toctree-l3"><a class="reference internal" href="renom_q.classicalregister.html">renom_q.classicalregister</a></li>
+<li class="toctree-l3"><a class="reference internal" href="renom_q.quantumcircuit.html">renom_q.quantumcircuit</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">renom_q.gate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.measure">renom_q.gate.measure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.barrier">renom_q.gate.barrier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.gate_base1">renom_q.gate.gate_base1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.reset">renom_q.gate.reset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.id">renom_q.gate.id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.x">renom_q.gate.x</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.y">renom_q.gate.y</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.z">renom_q.gate.z</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.h">renom_q.gate.h</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.s">renom_q.gate.s</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.sdg">renom_q.gate.sdg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.t">renom_q.gate.t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.tdg">renom_q.gate.tdg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.rx">renom_q.gate.rx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.ry">renom_q.gate.ry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.rz">renom_q.gate.rz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.u1">renom_q.gate.u1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.u2">renom_q.gate.u2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.u3">renom_q.gate.u3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.gate_base2">renom_q.gate.gate_base2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.cx">renom_q.gate.cx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.cy">renom_q.gate.cy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.cz">renom_q.gate.cz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.ch">renom_q.gate.ch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.cs">renom_q.gate.cs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.cu1">renom_q.gate.cu1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.cu3">renom_q.gate.cu3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.crz">renom_q.gate.crz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.swap">renom_q.gate.swap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.ccx">renom_q.gate.ccx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-renom_q.gate.cswap">renom_q.gate.cswap</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="renom_q.utilitys.html">renom_q.utilitys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="renom_q.exception.html">renom_q.exception</a></li>
+<li class="toctree-l3"><a class="reference internal" href="renom_q.ml.html">renom_q.ml</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../example/example.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ReNomQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api.html">API</a> &raquo;</li>
+        
+          <li><a href="renom_q.html">renom_q</a> &raquo;</li>
+        
+      <li>renom_q.gate</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/rsts/api/renom_q.gate.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="renom-q-gate">
+<h1>renom_q.gate<a class="headerlink" href="#renom-q-gate" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-renom_q.gate.measure">
+<span id="renom-q-gate-measure"></span><h2>renom_q.gate.measure<a class="headerlink" href="#module-renom_q.gate.measure" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.measure.measure">
+<code class="descclassname">renom_q.gate.measure.</code><code class="descname">measure</code><span class="sig-paren">(</span><em>self</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.measure.measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the quantum state of the qubits.</p>
+<dl class="docutils">
+<dt>args:</dt>
+<dd><dl class="first last docutils">
+<dt><a href="#id1"><span class="problematic" id="id2">*</span></a>args (renom_q.QuantumRegister and renom_q.ClassicalRegister, tuple and tuple or None):</dt>
+<dd>If arg type is tuple and tuple (ex: q[0], c[0]), measured a quantum
+register No.0 into a classical register No.0. If arg type is a
+renom_q.QuantumRegister and a renom_q.ClassicalRegister, measured
+all quantum registers in renom_q.QuantumRegister into all classical
+registers in renom_q.ClassicalRegister. If arg is None, measured
+all of multiple quantum registers into all classical registers
+in renom_q.ClassicalRegister. Only when definited single classical
+register, coding like example1 is possible.</dd>
+</dl>
+</dd>
+<dt>Example 1:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 2:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 3:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.barrier">
+<span id="renom-q-gate-barrier"></span><h2>renom_q.gate.barrier<a class="headerlink" href="#module-renom_q.gate.barrier" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.barrier.barrier">
+<code class="descclassname">renom_q.gate.barrier.</code><code class="descname">barrier</code><span class="sig-paren">(</span><em>self</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.barrier.barrier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a barrier block in circuit diagram.</p>
+<dl class="docutils">
+<dt>args:</dt>
+<dd><dl class="first last docutils">
+<dt><a href="#id3"><span class="problematic" id="id4">*</span></a>args (renom_q.QuantumRegister, tuple or None):</dt>
+<dd>If arg type is a tuple (ex: q[0]), a quantum register No.0 is
+added a barrier block. If arg type is a renom_q.QuantumRegister,
+all quantum registers in renom_q.QuantumRegister are added a
+barrier block. If arg type is None, all of multiple quantum
+registers are added a barrier block.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.gate_base1">
+<span id="renom-q-gate-gate-base1"></span><h2>renom_q.gate.gate_base1<a class="headerlink" href="#module-renom_q.gate.gate_base1" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.gate_base1.gate_base1">
+<code class="descclassname">renom_q.gate.gate_base1.</code><code class="descname">gate_base1</code><span class="sig-paren">(</span><em>self</em>, <em>gate_matrix</em>, <em>num</em>, <em>gatemark</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.gate_base1.gate_base1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.reset">
+<span id="renom-q-gate-reset"></span><h2>renom_q.gate.reset<a class="headerlink" href="#module-renom_q.gate.reset" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.reset.reset">
+<code class="descclassname">renom_q.gate.reset.</code><code class="descname">reset</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.reset.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply reset gate to quantum register.</p>
+<p>Thie gate is available only when resetting all quantum register.</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.id">
+<span id="renom-q-gate-id"></span><h2>renom_q.gate.id<a class="headerlink" href="#module-renom_q.gate.id" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.id.id">
+<code class="descclassname">renom_q.gate.id.</code><code class="descname">id</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.id.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply id gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.x">
+<span id="renom-q-gate-x"></span><h2>renom_q.gate.x<a class="headerlink" href="#module-renom_q.gate.x" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.x.x">
+<code class="descclassname">renom_q.gate.x.</code><code class="descname">x</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.x.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply x gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.y">
+<span id="renom-q-gate-y"></span><h2>renom_q.gate.y<a class="headerlink" href="#module-renom_q.gate.y" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.y.y">
+<code class="descclassname">renom_q.gate.y.</code><code class="descname">y</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.y.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply y gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">y</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.z">
+<span id="renom-q-gate-z"></span><h2>renom_q.gate.z<a class="headerlink" href="#module-renom_q.gate.z" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.z.z">
+<code class="descclassname">renom_q.gate.z.</code><code class="descname">z</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.z.z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply z gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.h">
+<span id="renom-q-gate-h"></span><h2>renom_q.gate.h<a class="headerlink" href="#module-renom_q.gate.h" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.h.h">
+<code class="descclassname">renom_q.gate.h.</code><code class="descname">h</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.h.h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply h gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.s">
+<span id="renom-q-gate-s"></span><h2>renom_q.gate.s<a class="headerlink" href="#module-renom_q.gate.s" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.s.s">
+<code class="descclassname">renom_q.gate.s.</code><code class="descname">s</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.s.s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply s gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.sdg">
+<span id="renom-q-gate-sdg"></span><h2>renom_q.gate.sdg<a class="headerlink" href="#module-renom_q.gate.sdg" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.sdg.sdg">
+<code class="descclassname">renom_q.gate.sdg.</code><code class="descname">sdg</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.sdg.sdg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply sdg gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">sdg</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.t">
+<span id="renom-q-gate-t"></span><h2>renom_q.gate.t<a class="headerlink" href="#module-renom_q.gate.t" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.t.t">
+<code class="descclassname">renom_q.gate.t.</code><code class="descname">t</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.t.t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply t gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.tdg">
+<span id="renom-q-gate-tdg"></span><h2>renom_q.gate.tdg<a class="headerlink" href="#module-renom_q.gate.tdg" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.tdg.tdg">
+<code class="descclassname">renom_q.gate.tdg.</code><code class="descname">tdg</code><span class="sig-paren">(</span><em>self</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.tdg.tdg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply tdg gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">tsg</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.rx">
+<span id="renom-q-gate-rx"></span><h2>renom_q.gate.rx<a class="headerlink" href="#module-renom_q.gate.rx" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.rx.rx">
+<code class="descclassname">renom_q.gate.rx.</code><code class="descname">rx</code><span class="sig-paren">(</span><em>self</em>, <em>theta</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.rx.rx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply rx gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>theta (float):</dt>
+<dd>Rotation angle of quantum statevector.</dd>
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.ry">
+<span id="renom-q-gate-ry"></span><h2>renom_q.gate.ry<a class="headerlink" href="#module-renom_q.gate.ry" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.ry.ry">
+<code class="descclassname">renom_q.gate.ry.</code><code class="descname">ry</code><span class="sig-paren">(</span><em>self</em>, <em>theta</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.ry.ry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply ry gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>theta (float):</dt>
+<dd>Rotation angle of quantum statevector.</dd>
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.rz">
+<span id="renom-q-gate-rz"></span><h2>renom_q.gate.rz<a class="headerlink" href="#module-renom_q.gate.rz" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.rz.rz">
+<code class="descclassname">renom_q.gate.rz.</code><code class="descname">rz</code><span class="sig-paren">(</span><em>self</em>, <em>theta</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.rz.rz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply rz gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>theta (float):</dt>
+<dd>Rotation angle of quantum statevector.</dd>
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.u1">
+<span id="renom-q-gate-u1"></span><h2>renom_q.gate.u1<a class="headerlink" href="#module-renom_q.gate.u1" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.u1.u1">
+<code class="descclassname">renom_q.gate.u1.</code><code class="descname">u1</code><span class="sig-paren">(</span><em>self</em>, <em>lam</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.u1.u1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply u1 gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>lam (float):</dt>
+<dd>The paramater of unitary gate U1.</dd>
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">u1</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.u2">
+<span id="renom-q-gate-u2"></span><h2>renom_q.gate.u2<a class="headerlink" href="#module-renom_q.gate.u2" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.u2.u2">
+<code class="descclassname">renom_q.gate.u2.</code><code class="descname">u2</code><span class="sig-paren">(</span><em>self</em>, <em>phi</em>, <em>lam</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.u2.u2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply u2 gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>phi (float):</dt>
+<dd>The paramater of unitary gate U2.</dd>
+<dt>lam (float):</dt>
+<dd>The paramater of unitary gate U2.</dd>
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">u2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.u3">
+<span id="renom-q-gate-u3"></span><h2>renom_q.gate.u3<a class="headerlink" href="#module-renom_q.gate.u3" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.u3.u3">
+<code class="descclassname">renom_q.gate.u3.</code><code class="descname">u3</code><span class="sig-paren">(</span><em>self</em>, <em>theta</em>, <em>phi</em>, <em>lam</em>, <em>q_num</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.u3.u3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply u3 gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>theta (float):</dt>
+<dd>The paramater of unitary gate U3.</dd>
+<dt>phi (float):</dt>
+<dd>The paramater of unitary gate U3.</dd>
+<dt>lam (float):</dt>
+<dd>The paramater of unitary gate U3.</dd>
+<dt>q_num (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]).</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">u3</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.gate_base2">
+<span id="renom-q-gate-gate-base2"></span><h2>renom_q.gate.gate_base2<a class="headerlink" href="#module-renom_q.gate.gate_base2" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.gate_base2.gate_base2">
+<code class="descclassname">renom_q.gate.gate_base2.</code><code class="descname">gate_base2</code><span class="sig-paren">(</span><em>self</em>, <em>gate_matrix</em>, <em>ctl</em>, <em>tgt</em>, <em>gatemark</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.gate_base2.gate_base2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.cx">
+<span id="renom-q-gate-cx"></span><h2>renom_q.gate.cx<a class="headerlink" href="#module-renom_q.gate.cx" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.cx.cx">
+<code class="descclassname">renom_q.gate.cx.</code><code class="descname">cx</code><span class="sig-paren">(</span><em>self</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.cx.cx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply cx gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.cy">
+<span id="renom-q-gate-cy"></span><h2>renom_q.gate.cy<a class="headerlink" href="#module-renom_q.gate.cy" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.cy.cy">
+<code class="descclassname">renom_q.gate.cy.</code><code class="descname">cy</code><span class="sig-paren">(</span><em>self</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.cy.cy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply cy gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">cy</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.cz">
+<span id="renom-q-gate-cz"></span><h2>renom_q.gate.cz<a class="headerlink" href="#module-renom_q.gate.cz" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.cz.cz">
+<code class="descclassname">renom_q.gate.cz.</code><code class="descname">cz</code><span class="sig-paren">(</span><em>self</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.cz.cz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply cz gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.ch">
+<span id="renom-q-gate-ch"></span><h2>renom_q.gate.ch<a class="headerlink" href="#module-renom_q.gate.ch" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.ch.ch">
+<code class="descclassname">renom_q.gate.ch.</code><code class="descname">ch</code><span class="sig-paren">(</span><em>self</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.ch.ch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply ch gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">ch</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.cs">
+<span id="renom-q-gate-cs"></span><h2>renom_q.gate.cs<a class="headerlink" href="#module-renom_q.gate.cs" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.cs.cs">
+<code class="descclassname">renom_q.gate.cs.</code><code class="descname">cs</code><span class="sig-paren">(</span><em>self</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.cs.cs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply cs gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">cs</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.cu1">
+<span id="renom-q-gate-cu1"></span><h2>renom_q.gate.cu1<a class="headerlink" href="#module-renom_q.gate.cu1" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.cu1.cu1">
+<code class="descclassname">renom_q.gate.cu1.</code><code class="descname">cu1</code><span class="sig-paren">(</span><em>self</em>, <em>lam</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.cu1.cu1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply cu1 gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>lam (float):</dt>
+<dd>The paramater of unitary gate cU1.</dd>
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">cu1</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.cu3">
+<span id="renom-q-gate-cu3"></span><h2>renom_q.gate.cu3<a class="headerlink" href="#module-renom_q.gate.cu3" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.cu3.cu3">
+<code class="descclassname">renom_q.gate.cu3.</code><code class="descname">cu3</code><span class="sig-paren">(</span><em>self</em>, <em>theta</em>, <em>phi</em>, <em>lam</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.cu3.cu3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply cu3 gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>theta (float):</dt>
+<dd>The paramater of unitary gate cU3.</dd>
+<dt>phi (float):</dt>
+<dd>The paramater of unitary gate cU3.</dd>
+<dt>lam (float):</dt>
+<dd>The paramater of unitary gate cU3.</dd>
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">cu3</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.crz">
+<span id="renom-q-gate-crz"></span><h2>renom_q.gate.crz<a class="headerlink" href="#module-renom_q.gate.crz" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.crz.crz">
+<code class="descclassname">renom_q.gate.crz.</code><code class="descname">crz</code><span class="sig-paren">(</span><em>self</em>, <em>lam</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.crz.crz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply crz gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>lam (float):</dt>
+<dd>Rotation angle of quantum statevector.</dd>
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">crz</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.swap">
+<span id="renom-q-gate-swap"></span><h2>renom_q.gate.swap<a class="headerlink" href="#module-renom_q.gate.swap" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.swap.swap">
+<code class="descclassname">renom_q.gate.swap.</code><code class="descname">swap</code><span class="sig-paren">(</span><em>self</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.swap.swap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply swap gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+exchanging qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+exchanging qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.ccx">
+<span id="renom-q-gate-ccx"></span><h2>renom_q.gate.ccx<a class="headerlink" href="#module-renom_q.gate.ccx" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.ccx.ccx">
+<code class="descclassname">renom_q.gate.ccx.</code><code class="descname">ccx</code><span class="sig-paren">(</span><em>self</em>, <em>q_ctl1</em>, <em>q_ctl2</em>, <em>q_tgt</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.ccx.ccx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply ccx gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_ctl1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s one
+of the control qubit.</dd>
+<dt>q_ctl2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s one
+of the control qubit.</dd>
+<dt>q_tgt (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+target qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-renom_q.gate.cswap">
+<span id="renom-q-gate-cswap"></span><h2>renom_q.gate.cswap<a class="headerlink" href="#module-renom_q.gate.cswap" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renom_q.gate.cswap.cswap">
+<code class="descclassname">renom_q.gate.cswap.</code><code class="descname">cswap</code><span class="sig-paren">(</span><em>self</em>, <em>q_ctl</em>, <em>q_num1</em>, <em>q_num2</em><span class="sig-paren">)</span><a class="headerlink" href="#renom_q.gate.cswap.cswap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply cswap gate to quantum register.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>q_ctl (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+control qubit.</dd>
+<dt>q_num1 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+exchanging qubit.</dd>
+<dt>q_num2 (tuple):</dt>
+<dd>A tuple of a quantum register and its index (ex:q[0]). It’s the
+exchanging qubit.</dd>
+</dl>
+</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">renom_q</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span> <span class="o">=</span> <span class="n">renom_q</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qc</span><span class="o">.</span><span class="n">cswap</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="renom_q.utilitys.html" class="btn btn-neutral float-right" title="renom_q.utilitys" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="renom_q.quantumcircuit.html" class="btn btn-neutral float-left" title="renom_q.quantumcircuit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Grid.Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -83,7 +83,6 @@ def execute(circuit, shots=1024):
     return dict(sorted(collections.Counter(cn).items(), key=lambda x: x[0]))
 
 
-
 def print_matrix(circuit, tensorgate=False):
     """ Print all matrix calculation of unitary conversion.
 

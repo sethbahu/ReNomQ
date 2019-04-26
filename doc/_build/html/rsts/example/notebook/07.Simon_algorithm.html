@@ -1,0 +1,764 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>7: Simon algorithm &mdash; ReNomQ  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js"></script>
+        <script type="text/javascript" src="../../../_static/katex_autorenderer.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="8: 2-bit quantum teleportation" href="08.Quantum_teleportation.html" />
+    <link rel="prev" title="6: Bernstein-Vazirani algorithm" href="06.Bernstein-Vazirani_algorithm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> ReNomQ
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction to ReNomQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/main.html">How to install ReNomQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/api.html">API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../example.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01.ReNomQ_tutorial.html">1: Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.Quantum_gate_tutorial1.html">2: Quantum gate tutorial1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.Quantum_gate_tutorial2.html">3: Quantum gate tutorial2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.Deutsch_algorithm.html">4: Deutsch algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.Deutsch-Jozsa_algorithm.html">5: Deutsch-Jozsa algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.Bernstein-Vazirani_algorithm.html">6: Bernstein-Vazirani algorithm</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7: Simon algorithm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Example1:-the-secret-key-">Example1: the secret key <span class="math">\(s=3=11_{(2)}\)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Example2:-the-secret-key-">Example2: the secret key <span class="math">\(s=1=01_{(2)}\)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Example3:-the-secret-key-">Example3: the secret key <span class="math">\(s=2=10_{(2)}\)</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08.Quantum_teleportation.html">8: 2-bit quantum teleportation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09.Grover_algorithm.html">9: Grover algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10.Quantum_Fourier_Transform.html">10: Quantum Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11.Quantum_Phase_Estimation_algorithm.html">11: Phase estimation problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12.Shor_algorithm.html">12: Shor algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13.Quantum_Error_Correction.html">13: Quantum Error Correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14.Quantum_tunnelling.html">14: Quantum tunnelling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15.Quantum-AutoEncoder.html">15: Quantum-AutoEncoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="16.Quantum-Clustering.html">16: Quantum-Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="17.Quantum-PCA.html">17: Quantum-Principal Component Analysis (PCA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18.Quantum-SVM.html">18: Quantum-Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ReNomQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../example.html">Examples</a> &raquo;</li>
+        
+      <li>7: Simon algorithm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/rsts/example/notebook/07.Simon_algorithm.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="7:-Simon-algorithm">
+<h1>7: Simon algorithm<a class="headerlink" href="#7:-Simon-algorithm" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">renom_q</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<p>For the <span class="math">\(n\)</span>-bit function <span class="math">\(f(x)\)</span> that is promised to have a secret key <span class="math">\(s\)</span> that satisfies the <span class="math">\(n\)</span>-bit variable <span class="math">\(x\)</span> and</p>
+<div class="math">
+\[f(x) = f(x \oplus s),
+
+\]</div>
+<p>the Simon problem is a problem of finding the secret key <span class="math">\(s\)</span>.</p>
+<div class="math">
+\[x \oplus s = (x_0 \oplus s_0, x_1 \oplus s_1, \dots, x_{n-1} \oplus s_{n-1})
+
+\]</div>
+<div class="math">
+\[\left| x_0 x_1 \right\rangle\left| 00 \right\rangle \xrightarrow{U_f} \left| x_0 x_1 \right\rangle\left| 00 \oplus f(x_0 x_1) \right\rangle = \left| x_0 x_1 \right\rangle\left| f(x_0 x_1) \right\rangle
+
+\]</div>
+<p>When <span class="math">\(n = 2\)</span>, the function table with the secret key <span class="math">\(s\)</span> other than 0 becomes as follows. The function value is arbitrary.</p>
+<ul class="simple">
+<li>In case of <span class="math">\(s=01\)</span></li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="62%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><span class="math">\(x\)</span></th>
+<th class="head">f(x)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>00</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>01</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>10</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>11</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>In case of <span class="math">\(s=10\)</span></li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="62%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><span class="math">\(x\)</span></th>
+<th class="head">f(x)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>00</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>01</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>10</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>11</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>In case of <span class="math">\(s=11\)</span></li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="62%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><span class="math">\(x\)</span></th>
+<th class="head">f(x)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>00</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>01</td>
+<td>3</td>
+</tr>
+<tr class="row-even"><td>10</td>
+<td>3</td>
+</tr>
+<tr class="row-odd"><td>11</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="Example1:-the-secret-key-">
+<h2>Example1: the secret key <span class="math">\(s=3=11_{(2)}\)</span><a class="headerlink" href="#Example1:-the-secret-key-" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">s_oracle</span><span class="p">(</span><span class="n">qci</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">f_x0</span><span class="p">,</span> <span class="n">f_x1</span><span class="p">):</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">f_x1</span><span class="p">)</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">f_x0</span><span class="p">)</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">f_x0</span><span class="p">)</span>
+
+<span class="n">bn</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">cn</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">bn</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="n">cn</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">s_oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cn</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;00&#39;: 523, &#39;11&#39;: 501}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/rsts_example_notebook_07.Simon_algorithm_9_1.png" src="../../../_images/rsts_example_notebook_07.Simon_algorithm_9_1.png" />
+</div>
+</div>
+<p><span class="math">\(\left| y \right\rangle = \left| 00 \right\rangle\)</span> and <span class="math">\(\left| y \right\rangle = \left| 11 \right\rangle\)</span> are observed. If <span class="math">\(\left| 11 \right\rangle\)</span>, the secret key 𝑠 is obtained from the following expression.</p>
+<div class="math">
+\[y \cdot s = (y_0 s_0) \oplus (y_1 s_1) = 0
+
+\]</div>
+<div class="math">
+\[\rightarrow s=11
+
+\]</div>
+</div>
+<div class="section" id="Example2:-the-secret-key-">
+<h2>Example2: the secret key <span class="math">\(s=1=01_{(2)}\)</span><a class="headerlink" href="#Example2:-the-secret-key-" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">s_oracle</span><span class="p">(</span><span class="n">qci</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">f_x0</span><span class="p">,</span> <span class="n">f_x1</span><span class="p">):</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">f_x1</span><span class="p">)</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">f_x1</span><span class="p">)</span>
+
+<span class="n">bn</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">cn</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">bn</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="n">cn</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">s_oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cn</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;00&#39;: 498, &#39;10&#39;: 526}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/rsts_example_notebook_07.Simon_algorithm_14_1.png" src="../../../_images/rsts_example_notebook_07.Simon_algorithm_14_1.png" />
+</div>
+</div>
+<p><span class="math">\(\left| y \right\rangle = \left| 00 \right\rangle\)</span> and <span class="math">\(\left| y \right\rangle = \left| 10 \right\rangle\)</span> are observed. If <span class="math">\(\left| 10 \right\rangle\)</span>, the secret key 𝑠 is obtained from the following expression.</p>
+<div class="math">
+\[y \cdot s = (y_0 s_0) \oplus (y_1 s_1) = 0
+
+\]</div>
+<div class="math">
+\[\rightarrow s=01
+
+\]</div>
+</div>
+<div class="section" id="Example3:-the-secret-key-">
+<h2>Example3: the secret key <span class="math">\(s=2=10_{(2)}\)</span><a class="headerlink" href="#Example3:-the-secret-key-" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">s_oracle</span><span class="p">(</span><span class="n">qci</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">f_x0</span><span class="p">,</span> <span class="n">f_x1</span><span class="p">):</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">f_x1</span><span class="p">)</span>
+    <span class="n">qci</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">f_x0</span><span class="p">)</span>
+
+<span class="n">bn</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">cn</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">bn</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="n">cn</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">s_oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cn</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;00&#39;: 515, &#39;01&#39;: 509}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/rsts_example_notebook_07.Simon_algorithm_19_1.png" src="../../../_images/rsts_example_notebook_07.Simon_algorithm_19_1.png" />
+</div>
+</div>
+<p><span class="math">\(\left| y \right\rangle = \left| 00 \right\rangle\)</span> and <span class="math">\(\left| y \right\rangle = \left| 01 \right\rangle\)</span> are observed. If <span class="math">\(\left| 01 \right\rangle\)</span>, the secret key 𝑠 is obtained from the following expression.</p>
+<div class="math">
+\[y \cdot s = (y_0 s_0) \oplus (y_1 s_1) = 0
+
+\]</div>
+<div class="math">
+\[\rightarrow s=10
+
+\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="08.Quantum_teleportation.html" class="btn btn-neutral float-right" title="8: 2-bit quantum teleportation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="06.Bernstein-Vazirani_algorithm.html" class="btn btn-neutral float-left" title="6: Bernstein-Vazirani algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Grid.Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
