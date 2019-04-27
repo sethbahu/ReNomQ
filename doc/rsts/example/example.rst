@@ -2,6 +2,8 @@ Examples
 ========
 
 .. toctree::
-    :glob:
+    :maxdepth: 1
 
-    notebook/*
+    Tutorial/tutorial
+    Quantum_algorithm/quantum_algorithm
+    Quantum_machine_learning/quantum_machine_learning
